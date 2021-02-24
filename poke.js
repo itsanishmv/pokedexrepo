@@ -64,6 +64,7 @@ function showWhenClicked(element) {
 
     console.log(x)
     dispDetails(x)
+    console.log("git1")
 }
 
 
