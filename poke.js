@@ -1,20 +1,15 @@
 var searchInput = document.getElementById("input")
 
-var text = searchInput.value;
+var text = document.getElementById("autocomplete");
 
 searchInput.addEventListener("keypress", search1)
-if (text == '') {
-    console.log('inside ifs statement')
-    var c = document.querySelector(".autocomplete")
-    c.innerHTML =''
-}
 
 function search1(evt) {
+    
     searchInput.addEventListener("onkeyup", suggestions())
-
+    
     if (evt.keyCode == 13) {
         dispDetails(searchInput.value)
-
     }
 }
 function suggestions() {
@@ -29,16 +24,20 @@ function suggestions() {
         .then((data) => {
 
             var pokemons = data.results /*accessing results inside json data*/
-
+            
             var suggestNames = pokemons.filter(pokemon => {
                 const regex = new RegExp(`^${searchInput.value}`, 'gi')
                 return pokemon.name.match(regex)
             })
             var a = suggestNames.map(suggestionName =>
-                `<li class="fetchedname" ontouchend ="suggestions()" onclick = "showWhenClicked(this)">${suggestionName.name}</li>`).join("<hr>")
-            var b =document.querySelector(".autocomplete")
+                `<li class="fetchedname" onclick = "showWhenClicked(this)">${suggestionName.name}</li>`).join("<hr>")
+            var b =document.getElementById("autocomplete")
             b.innerHTML = a
-
+            if (suggestions.length === 0) {
+                suggestNames = []
+                text.innerHTML = ''
+            }
+            dispDetails()
         })
 }
 function dispDetails(name) {
@@ -59,12 +58,14 @@ function dispDetails(name) {
 function showWhenClicked(element) {
     let x = element.textContent
     /*hide the suggestions when clicked in the same */
-    var d = document.querySelector(".autocomplete")
+    var d = document.getElementById("autocomplete")
     d.innerHTML = ''
-
     console.log(x)
     dispDetails(x)
     
+}
+function hideSuggestions(val) {
+    document.getElementById("autocomplete").innerHTML = ''
 }
 
 
