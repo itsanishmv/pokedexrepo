@@ -33,11 +33,12 @@ function suggestions() {
                 `<li class="fetchedname" onclick = "showWhenClicked(this)">${suggestionName.name}</li>`).join("<hr>")
             var b =document.getElementById("autocomplete")
             b.innerHTML = a
+            /* supposed to hide the autocomplete class when string value is 0 (but its not working) 
             if (suggestions.length === 0) {
                 suggestNames = []
                 text.innerHTML = ''
-            }
-            dispDetails()
+            }*/
+            
         })
 }
 function dispDetails(name) {
